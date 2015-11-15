@@ -1,14 +1,15 @@
-# assembler
+# Hack Assembler
 
-A Clojure library designed to ... well, that part is up to you.
+A Clojure library designed to assemble code for the Hack Computer.
+From Nand2Tetris course on Coursera - http://www.nand2tetris.org
 
 ## Usage
 
-FIXME
+To assemble the program called "Program.asm", issue the following command
+> lein run "Program.asm"
 
 ## License
 
-Copyright © 2015 FIXME
+Copyright © 2015 Arthur Caillau
 
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+Distributed under the Eclipse Public License, the same as Clojure.
