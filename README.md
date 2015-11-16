@@ -8,6 +8,11 @@ From Nand2Tetris course on Coursera - http://www.nand2tetris.org
 To assemble the program called "Program.asm", issue the following command
 > lein run "Program.asm"
 
+## Tests
+
+To run the test, issue the command
+> lein midje
+
 ## License
 
 Copyright © 2015 Arthur Caillau
