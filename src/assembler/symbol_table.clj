@@ -45,6 +45,16 @@
             [(assoc symbol-table value current-memory-address)
              (inc current-memory-address)]))))))
 
+(defn- handle-with
+  "Handler function that takes in instructions a clean functino a reduce
+  function and an initial value"
+  [instructions clean-f reduce-f x0]
+  (->> instructions
+       clean-f
+       s/split-lines
+       (reduce reduce-f x0)
+       first))
+
 (defn first-pass
   "Takes in a symbol-table and instructions and returns a symbol table"
   ([instructions]
@@ -52,14 +62,12 @@
   ([symbol-table instructions]
    (first-pass symbol-table instructions start-symbol-address))
   ([symbol-table instructions start-symbol-address]
-   (->> instructions
-        clean
-        ((juxt
-           (comp first
-                 (partial reduce handle-symbols [symbol-table start-symbol-address])
-                 s/split-lines
-                 clean-labels)
-           (comp first
-                 (partial reduce handle-label-definition [symbol-table 0])
-                 s/split-lines)))
-        (apply merge))))
+   (let [label-symbol-table
+         (handle-with instructions
+                      clean
+                      handle-label-definition
+                      [symbol-table 0])]
+     (handle-with instructions
+                  (comp clean-labels clean)
+                  handle-symbols
+                  [label-symbol-table start-symbol-address]))))

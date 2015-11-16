@@ -13,6 +13,8 @@
   "M=M+1"       :c
   "M=M+1;JMP"   :c
   "M=A|D;JLT"   :c
+  "(sys.init)"  :label
+  "(sys.halt)"  :label
   "(LOOP)"      :label
   "(END)"       :label)
 

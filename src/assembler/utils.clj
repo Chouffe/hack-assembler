@@ -11,7 +11,14 @@
            reverse
            (apply str))))
 
-;; TODO: fixme for max.asm
+(defn remove-empty-lines
+  "Removes empty lines from a string s"
+  [s]
+  (-> s
+      s/split-lines
+      (->> (remove empty)
+           (s/join "\n"))))
+
 (defn clean
   "Cleans up the string s. Removes comments and white spaces."
   [s]
@@ -20,18 +27,21 @@
       (s/replace #" " "")
       (s/replace #"^(\r\n)+" "")
       (s/replace #"[\n]+" "\n")
-      s/split-lines
-      (->> (remove empty)
-           (s/join "\n"))))
+      remove-empty-lines))
 
-;; TODO: fixme for max.asm
 (defn clean-labels
   "Cleans up the string s. Removes labels definitions"
   [s]
   (-> s
       (s/replace #"\(.*\)" "")
       (s/replace #"[\n]+" "\n")
-      clean
-      s/split-lines
-      (->> (remove empty)
-           (s/join "\n"))))
+      clean))
+
+(defn format-output-filename
+  "format the output filename given an input filename
+   Prog.asm => Prog.hack"
+  [input-filename]
+  (->> input-filename
+       (re-find #"(.*)\.asm")
+       last
+       (format "%s.hack")))

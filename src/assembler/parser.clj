@@ -1,12 +1,10 @@
 (ns assembler.parser)
 
-(def ^:private label-definition-regex #"^\(([A-Z|_]+)\)")
+(def ^:private label-definition-regex #"^\((.+)\)")
 (def ^:private a-instruction-regex #"@([\d|\w|\.|\$]+)")
 (def ^:private a-instruction-label-regex #"@([a-zA-Z|_|\.|\$]+[0-9]*)")
 (def ^:private c-instruction-regex
   #"^(?:(\w*)=)?([\w|\+|\-|\!|\||&|\d]*)(?:;?(\w{3}))?$")
-
-(re-matches #"@[\w\.]+" "@sys.init")
 
 (defn instruction-type
   "Given an instruction as a string s, it returns its type :a, :a-symbol label

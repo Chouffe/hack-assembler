@@ -19,11 +19,8 @@
 
 (defn -main
   [& args]
-  (let [filename (first *command-line-args*)]
+  (doseq [filename *command-line-args*]
     (->> filename
          slurp
          assemble
-         (spit (->> filename
-                    (re-find #"(.*)\.asm")
-                    last
-                    (format "%s.hack"))))))
+         (spit (format-output-filename filename)))))

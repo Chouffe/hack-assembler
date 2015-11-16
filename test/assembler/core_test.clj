@@ -27,4 +27,5 @@
     "Max.asm"                   "Max.hack"
     "RectL.asm"                 "RectL.hack"
     "Rect.asm"                  "Rect.hack"
-    "PongL.asm"                 "PongL.hack"))
+    "PongL.asm"                 "PongL.hack"
+    "Pong.asm"                  "Pong.hack"))

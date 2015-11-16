@@ -8,6 +8,7 @@
   [{} 0]         "(LOOP)"      [{:LOOP 0} 0]
   [{} 10]        "(LOOP)"      [{:LOOP 10} 10]
   [{} 10]        "(LOOP)"      [{:LOOP 10} 10]
+  [{} 10]        "(sys.init)"  [{:sys.init 10} 10]
   [{} 10]        "@1"          [{} 11]
   [{:LOOP 1} 10] "@1"          [{:LOOP 1} 11])
 
@@ -16,6 +17,7 @@
   ?state                     ?instruction         ?expected
   [{} 16]                    "@label"             [{:label 16} 17]
   [{} 16]                    "@symbol.init"       [{:symbol.init 16} 17]
+  [{} 16]                    "@ponggame.0"        [{:ponggame.0 16} 17]
   [{:label 3} 16]            "@label"             [{:label 3} 16]
   [{:label 3} 16]            "@12"                [{:label 3} 16]
   [{} 16]                    "@INFINITE_LOOP"     [{} 16]
@@ -43,4 +45,3 @@
                                                                 :address 17
                                                                 :LOOP 10
                                                                 :INFINITE_LOOP 23}))))
-
