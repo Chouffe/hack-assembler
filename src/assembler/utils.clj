@@ -45,3 +45,7 @@
        (re-find #"(.*)\.asm")
        last
        (format "%s.hack")))
+
+(defn int?
+  [s]
+  (boolean (re-matches #"\d+" s)))

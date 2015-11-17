@@ -1,7 +1,7 @@
 (ns assembler.symbol-table
-  (:require [assembler.parser :as parser]
+  (:require [clojure.string :as s]
             [assembler.utils :refer :all]
-            [clojure.string :as s]))
+            [assembler.parser :as parser]))
 
 (def pre-defined-symbols
   (merge
@@ -32,21 +32,14 @@
   [[symbol-table current-memory-address] instruction]
   (if-not (= :a (parser/instruction-type instruction))
     [symbol-table current-memory-address]
-    (let [value (-> instruction
-                    parser/parse-instruction
-                    second
-                    keyword)]
-      (try
-        (Integer. (name value))
+    (let [value (-> instruction parser/parse-instruction second)]
+      (if (or (int? value) (get symbol-table (keyword value)))
         [symbol-table current-memory-address]
-        (catch java.lang.NumberFormatException e
-          (if (or (get symbol-table value) (re-matches #"[A-Z|_]*" (name value)))
-            [symbol-table current-memory-address]
-            [(assoc symbol-table value current-memory-address)
-             (inc current-memory-address)]))))))
+        [(assoc symbol-table (keyword value) current-memory-address)
+         (inc current-memory-address)]))))
 
 (defn- handle-with
-  "Handler function that takes in instructions a clean functino a reduce
+  "Handler function that takes in instructions a clean function a reduce
   function and an initial value"
   [instructions clean-f reduce-f x0]
   (->> instructions

@@ -20,6 +20,7 @@
 (defn -main
   [& args]
   (doseq [filename *command-line-args*]
+    (println "Assembling file " filename)
     (->> filename
          slurp
          assemble
